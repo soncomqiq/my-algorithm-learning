@@ -49,6 +49,14 @@ public class ArrayUtil {
     }
 
     public static void insertionSort(Object[] d) {
-
+        for (int k = 1; k < d.length; k++) {
+            Object t = d[k];
+            int j = k - 1;
+            while (j >= 0 && lessThan(t, d[j])) {
+                d[j + 1] = d[j];
+                j--;
+            }
+            d[j + 1] = t;
+        }
     }
 }
