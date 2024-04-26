@@ -23,5 +23,32 @@ public class ArrayUtil {
         }
     }
 
+    public static void bubbleSort(Object[] d) {
+        for (int k = d.length - 1; k > 0; k--) {
+            for (int i = 0; i < k; i++) {
+                if (lessThan(d[i + 1], d[i])) {
+                    swap(d, i, i + 1);
+                }
+            }
+        }
+    }
 
+    public static void bubbleSort2(Object[] d) {
+        for (int k = d.length - 1; k > 0; k--) {
+            boolean sorted = true;
+            for (int i = 0; i < k; i++) {
+                if (lessThan(d[i + 1], d[i])) {
+                    swap(d, i, i + 1);
+                    sorted = false;
+                }
+            }
+            if (sorted) {
+                break;
+            }
+        }
+    }
+
+    public static void insertionSort(Object[] d) {
+
+    }
 }

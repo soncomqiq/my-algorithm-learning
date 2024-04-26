@@ -11,5 +11,11 @@ public class Main {
         System.out.println(Arrays.stream(arr1).toList());
         ArrayUtil.selectionSort(arr1);
         System.out.println(Arrays.stream(arr1).toList());
+
+        // Selection Sort
+        Integer[] arr2 = new Integer[]{3, 4, 7, 23, 54, 3, 2, 6, 7};
+        System.out.println(Arrays.stream(arr2).toList());
+        ArrayUtil.bubbleSort(arr2);
+        System.out.println(Arrays.stream(arr2).toList());
     }
 }
