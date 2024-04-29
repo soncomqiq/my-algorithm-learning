@@ -59,4 +59,41 @@ public class ArrayUtil {
             d[j + 1] = t;
         }
     }
+
+    // h-sequence -> 1,2,4,8, --> O(n^2)
+    // Sedgewick 1,8,23,77 --> O(n^(4/3))
+    public static void shellSort(Object[] d) {
+        for (int h = d.length / 2; h > 0; h /= 2) {
+            for (int m = 0; m < h; m++) {
+                for (int k = h + m; k < d.length; k += h) {
+                    Object t = d[k];
+                    int j = k - h;
+                    while (j >= 0 && lessThan(t, d[j])) {
+                        d[j + h] = d[j];
+                        j -= h;
+                    }
+                    d[j + h] = t;
+                }
+            }
+
+        }
+    }
+
+    // Optimized by Gonnet
+    public static void shellSortGonnet(Object[] d) {
+        for (int h = d.length / 2; h > 0; h = h == 2 ? 1 : (int) (h / 2.2)) {
+            for (int m = 0; m < h; m++) {
+                for (int k = h + m; k < d.length; k += h) {
+                    Object t = d[k];
+                    int j = k - h;
+                    while (j >= 0 && lessThan(t, d[j])) {
+                        d[j + h] = d[j];
+                        j -= h;
+                    }
+                    d[j + h] = t;
+                }
+            }
+
+        }
+    }
 }
