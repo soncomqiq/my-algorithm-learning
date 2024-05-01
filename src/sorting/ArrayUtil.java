@@ -121,4 +121,33 @@ public class ArrayUtil {
             k = c;
         }
     }
+
+    public static void mergeSort(Object[] d) {
+        mSortR(d, 0, d.length - 1, d.clone());
+    }
+
+    private static void mSortR(Object[] d, int left, int right, Object[] tempObj) {
+        if (left < right) {
+            int middle = (left + right) / 2;
+            mSortR(tempObj, left, middle, d);
+            mSortR(tempObj, middle + 1, right, d);
+            merge(tempObj, left, middle, right, d);
+        }
+    }
+
+    private static void merge(Object[] a, int left, int middle, int right, Object[] b) {
+        int i = left;
+        int j = middle + 1;
+        for (int k = left; k <= right; k++) {
+            if (i > middle) {
+                b[k] = a[j++];
+                continue;
+            }
+            if (j > right) {
+                b[k] = a[i++];
+                continue;
+            }
+            b[k] = lessThan(a[i], a[j]) ? a[i++] : a[j++];
+        }
+    }
 }
