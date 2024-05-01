@@ -96,4 +96,29 @@ public class ArrayUtil {
 
         }
     }
+
+    public static void heapSort(Object[] d) {
+        int size = d.length;
+        for (int k = size / 2 - 1; k >= 0; k--) {
+            fixDown(d, size, k);
+        }
+        for (int k = size - 1; k > 0; k--) {
+            swap(d, 0, k);
+            fixDown(d, --size, 0);
+        }
+    }
+
+    static void fixDown(Object[] d, int size, int k) {
+        int c;
+        while ((c = 2 * k + 1) < size) {
+            if (c < size - 1 && lessThan(d[c], d[c + 1])) {
+                c++;
+            }
+            if (!lessThan(d[k], d[c])) {
+                break;
+            }
+            swap(d, c, k);
+            k = c;
+        }
+    }
 }
