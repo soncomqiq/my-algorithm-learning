@@ -166,16 +166,17 @@ public class ArrayUtil {
     private static void qSortR(Object[] d, int left, int right) {
         if (left < right) {
             // partition will return pivot's index
-            int j = partition(d, left, right);
+            int j = partitionByMedianOfThree(d, left, right);
             qSortR(d, left, j - 1);
             qSortR(d, j + 1, right);
         }
     }
 
-    private static int partition(Object[] d, int left, int right) {
+    private static int partitionByRandom(Object[] d, int left, int right) {
         // Improve performance by randomizing pivot
         int randomIdx = left + (int) (Math.random() * (right - left + 1));
         swap(d, randomIdx, left);
+
         Object pivot = d[left];
         int i = left;
         int j = right + 1;
@@ -192,6 +193,48 @@ public class ArrayUtil {
                     break;
                 }
             }
+
+            // if it's the last step, don't need to swap them
+            if (i < j) {
+                swap(d, i, j);
+            }
+        }
+
+        swap(d, left, j);
+
+        return j;
+    }
+
+    private static int partitionByMedianOfThree(Object[] d, int left, int right) {
+        // Median of three
+        int c = (left + right) / 2;
+        if (lessThan(d[left], d[c])) swap(d, left, c);
+        if (lessThan(d[right], d[c])) swap(d, c, right);
+        if (lessThan(d[right], d[left])) swap(d, left, right);
+
+        /*
+            y <= x <= z
+            [ ]------------[ ]-------------[ ]
+             x              y               z
+             Due to z being the highest value among these three values
+             and also representing the last index,
+             we can now set j = right,
+             whereas previously we had to set j = right + 1.
+         */
+
+        Object pivot = d[left];
+        int i = left;
+        int j = right + 1;
+
+        while (i < j) {
+            // don't need to verify if 'j' will be lower than 'left'
+            // because it will at least stop at the pivot.
+            while (lessThan(pivot, d[--j])) ;
+
+            // Now, using the median of three, there's no necessity to check i anymore.
+            // This is because z, being the last index and greater than the pivot,
+            // cannot exceed the right position.
+            while (lessThan(d[++i], pivot)) ;
 
             // if it's the last step, don't need to swap them
             if (i < j) {
