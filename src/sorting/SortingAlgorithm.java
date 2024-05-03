@@ -10,17 +10,19 @@ public class SortingAlgorithm {
     }
 
     public void run() {
-        int max = 50000;
-        Integer[] randomArray = new Integer[max];
-        for (int i = 0; i < max; i++) {
-            randomArray[i] = (int) (Math.random() * 1000000);
+        int noOfElements = 50000;
+        int maxValue = 500000;
+        Integer[] randomArray = new Integer[noOfElements];
+        for (int i = 0; i < noOfElements; i++) {
+            randomArray[i] = (int) (Math.random() * maxValue);
         }
 
         testSortingPerformance(SortingAlgo.SELECTION, randomArray.clone(), false);
         testSortingPerformance(SortingAlgo.BUBBLE, randomArray.clone(), false);
         testSortingPerformance(SortingAlgo.INSERTION, randomArray.clone(), false);
         testSortingPerformance(SortingAlgo.HEAP, randomArray.clone(), false);
-        testSortingPerformance(SortingAlgo.MERGE, randomArray.clone(), false);
+        testSortingPerformance(SortingAlgo.MERGE, randomArray, false);
+        testSortingPerformance(SortingAlgo.QUICK, randomArray.clone(), false);
     }
 
     public Integer[] testSortingPerformance(SortingAlgo algo, Integer[] sortingArr, boolean printArr) {
@@ -36,6 +38,7 @@ public class SortingAlgorithm {
             case INSERTION -> ArrayUtil.insertionSort(sortingArr);
             case HEAP -> ArrayUtil.heapSort(sortingArr);
             case MERGE -> ArrayUtil.mergeSort(sortingArr);
+            case QUICK -> ArrayUtil.quickSort(sortingArr);
         }
         long timeEnd = System.nanoTime();
         if (printArr) {

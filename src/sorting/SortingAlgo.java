@@ -5,5 +5,6 @@ public enum SortingAlgo {
     SELECTION,
     INSERTION,
     HEAP,
-    MERGE
+    MERGE,
+    QUICK
 }
